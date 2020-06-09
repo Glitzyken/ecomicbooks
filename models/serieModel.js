@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify');
 
 const serieSchema = new mongoose.Schema(
   {
@@ -8,25 +7,23 @@ const serieSchema = new mongoose.Schema(
       required: [true, 'A serie must have a title.'],
       trim: true,
       minlength: [3, 'A serie title can not be less than 3 characters.'],
-      maxlength: [30, 'A serie title can not be more than 20 characters']
+      maxlength: [50, 'A serie title can not be more than 50 characters']
     },
-    slug: String,
     summary: {
       type: String,
       required: [true, 'A serie must have a summary.'],
       trim: true,
       minlength: [3, 'A serie summary can not be less than 3 characters.'],
-      maxlength: [30, 'A serie summary can not be more than 100 characters']
+      maxlength: [1000, 'A serie summary can not be more than 1000 characters']
     },
     publisher: String,
-    genres: [String],
-    issues: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Issue',
-        required: [true, 'A serie must have at least one issue.']
-      }
-    ]
+    genres: String,
+    coverImageUrl: String,
+    year: Number,
+    createdAt: {
+      type: Date,
+      default: Date.now()
+    }
   },
   {
     toJSON: { virtuals: true },
@@ -34,9 +31,10 @@ const serieSchema = new mongoose.Schema(
   }
 );
 
-serieSchema.pre('save', function(next) {
-  this.slug = slugify(this.name, { lower: true });
-  next();
+serieSchema.virtual('issues', {
+  ref: 'Issue',
+  foreignField: 'serie',
+  localField: '_id'
 });
 
 const Serie = mongoose.model('Serie', serieSchema);

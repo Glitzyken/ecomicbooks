@@ -15,7 +15,7 @@ exports.getAllSeries = catchAsync(async (req, res) => {
 });
 
 exports.getSerie = catchAsync(async (req, res) => {
-  const serie = await Serie.findById(req.params.id); // .populate('recipes');
+  const serie = await Serie.findById(req.params.id).populate('issues');
 
   res.status(200).json({
     status: 'success',

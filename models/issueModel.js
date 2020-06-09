@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const slugify = require('slugify');
 
 const issueSchema = new mongoose.Schema(
   {
@@ -8,14 +7,13 @@ const issueSchema = new mongoose.Schema(
       required: [true, 'An issue must have a name.'],
       trim: true,
       minlength: [3, 'an issue name can not be less than 3 characters.'],
-      maxlength: [30, 'an issue name can not be more than 20 characters']
+      maxlength: [55, 'an issue name can not be more than 55 characters']
     },
-    slug: String,
-    file: String,
+    imageUrls: [String],
     serie: {
       type: mongoose.Schema.ObjectId,
       ref: 'Serie',
-      required: [true, 'an issue must belong to a serie.']
+      required: [true, 'An issue must belong to a serie.']
     }
   },
   {
@@ -24,8 +22,12 @@ const issueSchema = new mongoose.Schema(
   }
 );
 
-issueSchema.pre('save', function(next) {
-  this.slug = slugify(this.name, { lower: true });
+issueSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'serie',
+    select: 'title coverImageUrl'
+  });
+
   next();
 });
 
