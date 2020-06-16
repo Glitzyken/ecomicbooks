@@ -5,6 +5,7 @@ const issueSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, 'An issue must have a name.'],
+      unique: true,
       trim: true,
       minlength: [3, 'an issue name can not be less than 3 characters.'],
       maxlength: [55, 'an issue name can not be more than 55 characters']

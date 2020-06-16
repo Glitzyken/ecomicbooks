@@ -1,7 +1,7 @@
 const express = require('express');
 const issueController = require('./../controllers/issueController');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router
   .route('/')

@@ -1,7 +1,10 @@
 const express = require('express');
 const serieController = require('./../controllers/serieController');
+const issueRouter = require('./../routes/issueRoutes');
 
 const router = express.Router();
+
+router.use('/:serieId/issues', issueRouter);
 
 router
   .route('/')

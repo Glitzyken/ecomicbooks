@@ -5,6 +5,7 @@ const serieSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, 'A serie must have a title.'],
+      unique: true,
       trim: true,
       minlength: [3, 'A serie title can not be less than 3 characters.'],
       maxlength: [50, 'A serie title can not be more than 50 characters']
@@ -17,7 +18,7 @@ const serieSchema = new mongoose.Schema(
       maxlength: [1000, 'A serie summary can not be more than 1000 characters']
     },
     publisher: String,
-    genres: String,
+    genres: [String],
     coverImageUrl: String,
     year: Number,
     createdAt: {
