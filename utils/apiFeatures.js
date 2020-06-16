@@ -45,9 +45,9 @@ class APIFeatures {
 
   // Pagination
   paginate() {
-    const page = this.queryString.page * 1 || 1; // set default page
-    const limit = this.queryString.limit * 1 || 100; // set default limit (how many recipes to show per page)
-    const skip = (page - 1) * limit; // Formular: if page=3&limit=100, therefore, 1-100 = page 1, 100-200 = page 2, 200-300 = page 3. Thus, formular for calculating how many recipes to be skipped to get to the requested page number = requested page - 1 * limit
+    const page = this.queryString.page * 1 || 1;
+    const limit = this.queryString.limit * 1 || 100;
+    const skip = (page - 1) * limit;
 
     this.query = this.query.skip(skip).limit(limit);
 
