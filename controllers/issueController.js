@@ -4,6 +4,7 @@ const AppError = require('./../utils/appError');
 
 exports.getAllIssues = catchAsync(async (req, res) => {
   let filter = {};
+
   if (req.params.serieId) filter = { serie: req.params.serieId };
 
   const issues = await Issue.find(filter);

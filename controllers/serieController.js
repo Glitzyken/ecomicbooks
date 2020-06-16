@@ -1,9 +1,16 @@
 const Serie = require('./../models/serieModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
+const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getAllSeries = catchAsync(async (req, res) => {
-  const series = await Serie.find();
+  const features = new APIFeatures(Serie, req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const series = await features.query;
 
   res.status(200).json({
     status: 'success',
