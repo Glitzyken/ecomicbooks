@@ -7,8 +7,12 @@ const issueSchema = new mongoose.Schema(
       required: [true, 'An issue must have a name.'],
       unique: true,
       trim: true,
-      minlength: [3, 'an issue name can not be less than 3 characters.'],
-      maxlength: [55, 'an issue name can not be more than 55 characters']
+      minlength: [3, 'An issue name can not be less than 3 characters.'],
+      maxlength: [55, 'An issue name can not be more than 55 characters']
+    },
+    coverImageUrl: {
+      type: String,
+      required: [true, 'An issue must have a cover image.']
     },
     imageUrls: [String],
     serie: {

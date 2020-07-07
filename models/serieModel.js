@@ -9,7 +9,7 @@ const serieSchema = new mongoose.Schema(
       unique: true,
       trim: true,
       minlength: [3, 'A serie title can not be less than 3 characters.'],
-      maxlength: [50, 'A serie title can not be more than 50 characters']
+      maxlength: [50, 'A serie title can not be more than 50 characters.']
     },
     slug: String,
     summary: {
@@ -17,12 +17,19 @@ const serieSchema = new mongoose.Schema(
       required: [true, 'A serie must have a summary.'],
       trim: true,
       minlength: [3, 'A serie summary can not be less than 3 characters.'],
-      maxlength: [1000, 'A serie summary can not be more than 1000 characters']
+      maxlength: [1000, 'A serie summary can not be more than 1000 characters.']
     },
     publisher: String,
     genres: [String],
-    coverImageUrl: String,
+    coverImageUrl: {
+      type: String,
+      required: [true, 'A serie must have a cover image.']
+    },
     year: Number,
+    popular: {
+      type: Boolean,
+      default: 'false'
+    },
     createdAt: {
       type: Date,
       default: Date.now()
