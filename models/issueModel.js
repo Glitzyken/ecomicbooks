@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const issueSchema = new mongoose.Schema(
   {
@@ -10,6 +11,7 @@ const issueSchema = new mongoose.Schema(
       minlength: [3, 'An issue name can not be less than 3 characters.'],
       maxlength: [55, 'An issue name can not be more than 55 characters']
     },
+    slug: String,
     coverImageUrl: {
       type: String,
       required: [true, 'An issue must have a cover image.']
@@ -33,6 +35,11 @@ issueSchema.pre(/^find/, function(next) {
     select: 'title coverImageUrl'
   });
 
+  next();
+});
+
+issueSchema.pre('save', function(next) {
+  this.slug = slugify(this.name, { lower: true });
   next();
 });
 

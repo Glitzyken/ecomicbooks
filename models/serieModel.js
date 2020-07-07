@@ -20,7 +20,7 @@ const serieSchema = new mongoose.Schema(
       maxlength: [1000, 'A serie summary can not be more than 1000 characters.']
     },
     publisher: String,
-    genres: [String],
+    genres: String,
     coverImageUrl: {
       type: String,
       required: [true, 'A serie must have a cover image.']
