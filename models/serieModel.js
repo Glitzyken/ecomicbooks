@@ -25,7 +25,6 @@ const serieSchema = new mongoose.Schema(
       type: String,
       required: [true, 'A serie must have a cover image.']
     },
-    year: Number,
     popular: {
       type: Boolean,
       default: 'false'
